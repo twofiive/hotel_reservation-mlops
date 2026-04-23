@@ -8,3 +8,4 @@ lightgbm
 mlflow
 flask
 requests
+prometheus-client
