@@ -1,0 +1,165 @@
+name: CI/CD Pipeline — Hotel MLOps
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  PYTHON_VERSION: "3.10"
+  IMAGE_NAME: hotel-mlops
+
+jobs:
+  # ── Job 1 : Tests ──────────────────────────────────────────
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+
+      - name: Create required directories
+        run: |
+          mkdir -p artifacts/raw artifacts/processed \
+                   artifacts/models artifacts/opendata logs
+
+      - name: Run data pipeline with local CSV
+        run: |
+          python3 -c "
+          import shutil, os, pandas as pd
+          from src.data_ingestion import DataIngestion
+          from utils.common_functions import read_yaml
+          from config.paths_config import *
+
+          # Use local CSV instead of GCS in CI environment
+          os.makedirs(RAW_DIR, exist_ok=True)
+          shutil.copy('data/raw/Hotel_Reservations.csv', RAW_FILE_PATH)
+
+          config = read_yaml(CONFIG_PATH)
+          ingestion = DataIngestion(config)
+
+          df = pd.read_csv(RAW_FILE_PATH)
+          df = ingestion.fetch_weather_data(df)
+          df_tourism = ingestion.fetch_tourism_opendata()
+          df = df.merge(df_tourism, on=['arrival_year','arrival_month'], how='left')
+          df.to_csv(RAW_FILE_PATH, index=False)
+          ingestion.split_data(df)
+          print('Data pipeline completed')
+          "
+
+      - name: Run preprocessing
+        run: |
+          python3 -c "
+          from src.data_preprocessing import DataProcessor
+          from config.paths_config import *
+          processor = DataProcessor(
+              TRAIN_FILE_PATH, TEST_FILE_PATH,
+              PROCESSED_DIR, CONFIG_PATH
+          )
+          processor.process()
+          print('Preprocessing completed')
+          "
+
+      - name: Train model
+        run: |
+          python3 -c "
+          import mlflow
+          mlflow.set_tracking_uri('file:./mlruns')
+          from src.model_training import ModelTraining
+          from config.paths_config import *
+          trainer = ModelTraining(
+              PROCESSED_TRAIN_DATA_PATH,
+              PROCESSED_TEST_DATA_PATH,
+              MODEL_OUTPUT_PATH
+          )
+          trainer.run()
+          print('Model training completed')
+          "
+
+      - name: Run tests with coverage
+        env:
+          API_KEY: hotel-dev-key-2024
+        run: |
+          python3 -m pytest tests/ -v \
+            --cov=api --cov=src \
+            --cov-report=xml \
+            --cov-report=term
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+
+      - name: Upload trained model
+        uses: actions/upload-artifact@v4
+        with:
+          name: lgbm-model
+          path: artifacts/models/lgbm_model.pkl
+
+  # ── Job 2 : Build & Push Docker ────────────────────────────
+  build:
+    name: Build & Push Docker Image
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download trained model
+        uses: actions/download-artifact@v4
+        with:
+          name: lgbm-model
+          path: artifacts/models/
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+  # ── Job 3 : Deploy ─────────────────────────────────────────
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deployment summary
+        run: |
+          echo "Image pushed to Docker Hub successfully"
+          echo "Image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest"
+          echo "SHA: ${{ github.sha }}"
+          echo "Deploy to your target environment using:"
+          echo "docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest"
