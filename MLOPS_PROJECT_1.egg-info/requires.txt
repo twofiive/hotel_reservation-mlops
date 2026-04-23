@@ -1,0 +1,9 @@
+flask
+google-cloud-storage
+imbalanced-learn
+lightgbm
+mlflow
+numpy
+pandas
+pyyaml
+scikit-learn

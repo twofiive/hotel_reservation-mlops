@@ -1,0 +1,25 @@
+2026-04-23 14:13:49,131 - INFO - Succesfully read the YAML file
+2026-04-23 14:13:49,131 - INFO - DataIngestion initialisé
+2026-04-23 14:13:49,131 - INFO - [Source 2 - API Open-Meteo] Début enrichissement météo
+2026-04-23 14:13:49,178 - INFO - [Source 2 - API Open-Meteo] Période : 2017-07-01 → 2018-12-31
+2026-04-23 14:13:49,391 - INFO - [Source 2 - API Open-Meteo] 549 jours enrichis
+2026-04-23 14:16:16,418 - INFO - Succesfully read the YAML file
+2026-04-23 14:16:16,418 - INFO - DataIngestion initialisé
+2026-04-23 14:16:16,418 - INFO - [Source 3 - OpenData INSEE] Téléchargement données tourisme
+2026-04-23 14:16:16,596 - WARNING - [Source 3 - OpenData] Erreur : 404 Client Error: NOT FOUND for url: https://www.data.gouv.fr/api/1/datasets/r/b4419b65-54b3-4c3a-a0a5-2a7f1e6cfe05 — source ignorée
+2026-04-23 14:22:22,810 - INFO - Succesfully read the YAML file
+2026-04-23 14:22:22,810 - INFO - DataIngestion initialisé
+2026-04-23 14:22:22,810 - INFO - [Source 3 - API INSEE] Téléchargement nuitées hôtelières mensuelles
+2026-04-23 14:22:23,014 - WARNING - [Source 3 - API INSEE] Erreur : Expecting value: line 1 column 1 (char 0) — fallback CSV local
+2026-04-23 14:22:23,015 - INFO - [Source 3 - Fallback] Utilisation données nuitées statiques INSEE
+2026-04-23 14:22:23,018 - INFO - [Source 3 - Fallback] 24 lignes sauvegardées
+2026-04-23 14:26:48,706 - INFO - Succesfully read the YAML file
+2026-04-23 14:26:48,706 - INFO - DataIngestion initialisé
+2026-04-23 14:26:48,779 - INFO - [Source 2 - API Open-Meteo] Début enrichissement météo
+2026-04-23 14:26:48,828 - INFO - [Source 2 - API Open-Meteo] Période : 2017-07-01 → 2018-12-31
+2026-04-23 14:26:49,037 - INFO - [Source 2 - API Open-Meteo] 549 jours enrichis
+2026-04-23 14:26:49,044 - INFO - [Source 3 - API INSEE] Téléchargement nuitées hôtelières mensuelles
+2026-04-23 14:26:49,292 - WARNING - [Source 3 - API INSEE] Erreur : Expecting value: line 1 column 1 (char 0) — fallback CSV local
+2026-04-23 14:26:49,293 - INFO - [Source 3 - Fallback] Utilisation données nuitées statiques INSEE
+2026-04-23 14:26:49,295 - INFO - [Source 3 - Fallback] 24 lignes sauvegardées
+2026-04-23 14:26:49,715 - INFO - Train : 29020 lignes | Test : 7255 lignes
