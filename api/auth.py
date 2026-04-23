@@ -3,7 +3,11 @@ from flask import request, jsonify
 import os
 
 # API key loaded from environment variable
-API_KEY = os.getenv("API_KEY", "hotel-dev-key-2024")
+API_KEY = os.getenv("API_KEY", "test-key-for-ci")
+
+if not API_KEY:
+    raise ValueError("API_KEY environment variable is not set")
+
 
 def require_api_key(f):
     """

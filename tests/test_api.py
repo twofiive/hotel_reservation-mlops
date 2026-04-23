@@ -1,6 +1,9 @@
 import pytest
 import json
 from api.app import create_app
+import os
+
+os.environ["API_KEY"] = "test-key-for-ci"
 
 @pytest.fixture
 def client():
