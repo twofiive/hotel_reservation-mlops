@@ -27,5 +27,6 @@ data_processing:
     - temperature_max
     - precipitation
     - windspeed_max
+    - nuitees_hotels_france
   skewness_threshold: 5
   no_of_features: 10

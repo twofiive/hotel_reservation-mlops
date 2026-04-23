@@ -23,3 +23,151 @@
 2026-04-23 14:26:49,293 - INFO - [Source 3 - Fallback] Utilisation données nuitées statiques INSEE
 2026-04-23 14:26:49,295 - INFO - [Source 3 - Fallback] 24 lignes sauvegardées
 2026-04-23 14:26:49,715 - INFO - Train : 29020 lignes | Test : 7255 lignes
+2026-04-23 14:34:24,662 - INFO - Succesfully read the YAML file
+2026-04-23 14:37:13,748 - INFO - Succesfully read the YAML file
+2026-04-23 14:37:13,748 - INFO - Loading data from RAW directory
+2026-04-23 14:37:13,748 - INFO - Loading data
+2026-04-23 14:37:13,815 - INFO - Loading data
+2026-04-23 14:37:13,826 - INFO - Starting our Data Processing step
+2026-04-23 14:37:13,827 - INFO - Dropping the columns
+2026-04-23 14:37:13,827 - ERROR - Error during preprocess step "['Unnamed: 0'] not found in axis"
+2026-04-23 14:37:13,827 - ERROR - Error during preprocessing pipeline Error in /home/ryan.ebanda/ece/hotel_reservation-mlops/src/data_preprocessing.py , line 32 : Error while preprocess data
+2026-04-23 14:43:03,966 - INFO - Succesfully read the YAML file
+2026-04-23 14:43:03,966 - INFO - Loading data from RAW directory
+2026-04-23 14:43:03,966 - INFO - Loading data
+2026-04-23 14:43:04,036 - INFO - Loading data
+2026-04-23 14:43:04,054 - INFO - Starting our Data Processing step
+2026-04-23 14:43:04,054 - INFO - Dropping the columns
+2026-04-23 14:43:04,071 - INFO - Applying Label Encoding
+2026-04-23 14:43:04,086 - INFO - Label Mappings are : 
+2026-04-23 14:43:04,086 - INFO - type_of_meal_plan : {'Meal Plan 1': np.int64(0), 'Meal Plan 2': np.int64(1), 'Meal Plan 3': np.int64(2), 'Not Selected': np.int64(3)}
+2026-04-23 14:43:04,086 - INFO - required_car_parking_space : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2026-04-23 14:43:04,086 - INFO - room_type_reserved : {'Room_Type 1': np.int64(0), 'Room_Type 2': np.int64(1), 'Room_Type 3': np.int64(2), 'Room_Type 4': np.int64(3), 'Room_Type 5': np.int64(4), 'Room_Type 6': np.int64(5), 'Room_Type 7': np.int64(6)}
+2026-04-23 14:43:04,086 - INFO - market_segment_type : {'Aviation': np.int64(0), 'Complementary': np.int64(1), 'Corporate': np.int64(2), 'Offline': np.int64(3), 'Online': np.int64(4)}
+2026-04-23 14:43:04,086 - INFO - repeated_guest : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2026-04-23 14:43:04,087 - INFO - booking_status : {'Canceled': np.int64(0), 'Not_Canceled': np.int64(1)}
+2026-04-23 14:43:04,087 - INFO - Doing Skewness HAndling
+2026-04-23 14:43:04,090 - INFO - Starting our Data Processing step
+2026-04-23 14:43:04,090 - INFO - Dropping the columns
+2026-04-23 14:43:04,096 - INFO - Applying Label Encoding
+2026-04-23 14:43:04,102 - INFO - Label Mappings are : 
+2026-04-23 14:43:04,102 - INFO - type_of_meal_plan : {'Meal Plan 1': np.int64(0), 'Meal Plan 2': np.int64(1), 'Meal Plan 3': np.int64(2), 'Not Selected': np.int64(3)}
+2026-04-23 14:43:04,102 - INFO - required_car_parking_space : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2026-04-23 14:43:04,102 - INFO - room_type_reserved : {'Room_Type 1': np.int64(0), 'Room_Type 2': np.int64(1), 'Room_Type 3': np.int64(2), 'Room_Type 4': np.int64(3), 'Room_Type 5': np.int64(4), 'Room_Type 6': np.int64(5), 'Room_Type 7': np.int64(6)}
+2026-04-23 14:43:04,102 - INFO - market_segment_type : {'Aviation': np.int64(0), 'Complementary': np.int64(1), 'Corporate': np.int64(2), 'Offline': np.int64(3), 'Online': np.int64(4)}
+2026-04-23 14:43:04,102 - INFO - repeated_guest : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2026-04-23 14:43:04,102 - INFO - booking_status : {'Canceled': np.int64(0), 'Not_Canceled': np.int64(1)}
+2026-04-23 14:43:04,102 - INFO - Doing Skewness HAndling
+2026-04-23 14:43:04,104 - INFO - Handling Imbalanced Data
+2026-04-23 14:43:04,109 - ERROR - Error during balancing data step Input X contains NaN.
+SMOTE does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2026-04-23 14:43:04,109 - ERROR - Error during preprocessing pipeline Error in /home/ryan.ebanda/ece/hotel_reservation-mlops/src/data_preprocessing.py , line 73 : Error while balancing data
+2026-04-23 14:43:48,871 - INFO - Succesfully read the YAML file
+2026-04-23 14:43:48,872 - INFO - Loading data from RAW directory
+2026-04-23 14:43:48,872 - INFO - Loading data
+2026-04-23 14:43:48,931 - INFO - Loading data
+2026-04-23 14:43:48,942 - INFO - Starting our Data Processing step
+2026-04-23 14:43:48,942 - INFO - Dropping the columns
+2026-04-23 14:43:48,959 - INFO - Applying Label Encoding
+2026-04-23 14:43:48,974 - INFO - Label Mappings are : 
+2026-04-23 14:43:48,974 - INFO - type_of_meal_plan : {'Meal Plan 1': np.int64(0), 'Meal Plan 2': np.int64(1), 'Meal Plan 3': np.int64(2), 'Not Selected': np.int64(3)}
+2026-04-23 14:43:48,974 - INFO - required_car_parking_space : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2026-04-23 14:43:48,974 - INFO - room_type_reserved : {'Room_Type 1': np.int64(0), 'Room_Type 2': np.int64(1), 'Room_Type 3': np.int64(2), 'Room_Type 4': np.int64(3), 'Room_Type 5': np.int64(4), 'Room_Type 6': np.int64(5), 'Room_Type 7': np.int64(6)}
+2026-04-23 14:43:48,974 - INFO - market_segment_type : {'Aviation': np.int64(0), 'Complementary': np.int64(1), 'Corporate': np.int64(2), 'Offline': np.int64(3), 'Online': np.int64(4)}
+2026-04-23 14:43:48,974 - INFO - repeated_guest : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2026-04-23 14:43:48,975 - INFO - booking_status : {'Canceled': np.int64(0), 'Not_Canceled': np.int64(1)}
+2026-04-23 14:43:48,975 - INFO - Doing Skewness HAndling
+2026-04-23 14:43:48,978 - INFO - Starting our Data Processing step
+2026-04-23 14:43:48,978 - INFO - Dropping the columns
+2026-04-23 14:43:48,984 - INFO - Applying Label Encoding
+2026-04-23 14:43:48,990 - INFO - Label Mappings are : 
+2026-04-23 14:43:48,990 - INFO - type_of_meal_plan : {'Meal Plan 1': np.int64(0), 'Meal Plan 2': np.int64(1), 'Meal Plan 3': np.int64(2), 'Not Selected': np.int64(3)}
+2026-04-23 14:43:48,990 - INFO - required_car_parking_space : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2026-04-23 14:43:48,990 - INFO - room_type_reserved : {'Room_Type 1': np.int64(0), 'Room_Type 2': np.int64(1), 'Room_Type 3': np.int64(2), 'Room_Type 4': np.int64(3), 'Room_Type 5': np.int64(4), 'Room_Type 6': np.int64(5), 'Room_Type 7': np.int64(6)}
+2026-04-23 14:43:48,991 - INFO - market_segment_type : {'Aviation': np.int64(0), 'Complementary': np.int64(1), 'Corporate': np.int64(2), 'Offline': np.int64(3), 'Online': np.int64(4)}
+2026-04-23 14:43:48,991 - INFO - repeated_guest : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2026-04-23 14:43:48,991 - INFO - booking_status : {'Canceled': np.int64(0), 'Not_Canceled': np.int64(1)}
+2026-04-23 14:43:48,991 - INFO - Doing Skewness HAndling
+2026-04-23 14:43:48,994 - INFO - Handling Imbalanced Data
+2026-04-23 14:43:49,000 - ERROR - Error during balancing data step Input X contains NaN.
+SMOTE does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2026-04-23 14:43:49,000 - ERROR - Error during preprocessing pipeline Error in /home/ryan.ebanda/ece/hotel_reservation-mlops/src/data_preprocessing.py , line 73 : Error while balancing data
+2026-04-23 14:48:07,874 - INFO - Succesfully read the YAML file
+2026-04-23 14:48:07,874 - INFO - Loading data from RAW directory
+2026-04-23 14:48:07,874 - INFO - Loading data
+2026-04-23 14:48:07,932 - INFO - Loading data
+2026-04-23 14:48:07,943 - INFO - Starting our Data Processing step
+2026-04-23 14:48:07,943 - INFO - Dropping the columns
+2026-04-23 14:48:07,959 - INFO - Imputing missing values...
+2026-04-23 14:48:07,992 - INFO - Remaining NaN after imputation : 0
+2026-04-23 14:48:07,992 - INFO - Applying Label Encoding
+2026-04-23 14:48:08,007 - INFO - Label Mappings are : 
+2026-04-23 14:48:08,007 - INFO - type_of_meal_plan : {'Meal Plan 1': np.int64(0), 'Meal Plan 2': np.int64(1), 'Meal Plan 3': np.int64(2), 'Not Selected': np.int64(3)}
+2026-04-23 14:48:08,007 - INFO - required_car_parking_space : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2026-04-23 14:48:08,007 - INFO - room_type_reserved : {'Room_Type 1': np.int64(0), 'Room_Type 2': np.int64(1), 'Room_Type 3': np.int64(2), 'Room_Type 4': np.int64(3), 'Room_Type 5': np.int64(4), 'Room_Type 6': np.int64(5), 'Room_Type 7': np.int64(6)}
+2026-04-23 14:48:08,007 - INFO - market_segment_type : {'Aviation': np.int64(0), 'Complementary': np.int64(1), 'Corporate': np.int64(2), 'Offline': np.int64(3), 'Online': np.int64(4)}
+2026-04-23 14:48:08,007 - INFO - repeated_guest : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2026-04-23 14:48:08,007 - INFO - booking_status : {'Canceled': np.int64(0), 'Not_Canceled': np.int64(1)}
+2026-04-23 14:48:08,007 - INFO - Doing Skewness HAndling
+2026-04-23 14:48:08,011 - INFO - Starting our Data Processing step
+2026-04-23 14:48:08,011 - INFO - Dropping the columns
+2026-04-23 14:48:08,017 - INFO - Imputing missing values...
+2026-04-23 14:48:08,027 - INFO - Remaining NaN after imputation : 0
+2026-04-23 14:48:08,028 - INFO - Applying Label Encoding
+2026-04-23 14:48:08,033 - INFO - Label Mappings are : 
+2026-04-23 14:48:08,033 - INFO - type_of_meal_plan : {'Meal Plan 1': np.int64(0), 'Meal Plan 2': np.int64(1), 'Meal Plan 3': np.int64(2), 'Not Selected': np.int64(3)}
+2026-04-23 14:48:08,033 - INFO - required_car_parking_space : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2026-04-23 14:48:08,033 - INFO - room_type_reserved : {'Room_Type 1': np.int64(0), 'Room_Type 2': np.int64(1), 'Room_Type 3': np.int64(2), 'Room_Type 4': np.int64(3), 'Room_Type 5': np.int64(4), 'Room_Type 6': np.int64(5), 'Room_Type 7': np.int64(6)}
+2026-04-23 14:48:08,033 - INFO - market_segment_type : {'Aviation': np.int64(0), 'Complementary': np.int64(1), 'Corporate': np.int64(2), 'Offline': np.int64(3), 'Online': np.int64(4)}
+2026-04-23 14:48:08,033 - INFO - repeated_guest : {np.int64(0): np.int64(0), np.int64(1): np.int64(1)}
+2026-04-23 14:48:08,033 - INFO - booking_status : {'Canceled': np.int64(0), 'Not_Canceled': np.int64(1)}
+2026-04-23 14:48:08,033 - INFO - Doing Skewness HAndling
+2026-04-23 14:48:08,035 - INFO - Handling Imbalanced Data
+2026-04-23 14:48:08,134 - INFO - Data balanced sucesffuly
+2026-04-23 14:48:08,134 - INFO - Handling Imbalanced Data
+2026-04-23 14:48:08,152 - INFO - Data balanced sucesffuly
+2026-04-23 14:48:08,152 - INFO - Starting our Feature selection step
+2026-04-23 14:48:13,192 - INFO - Features selected : ['lead_time' 'no_of_special_requests' 'avg_price_per_room'
+ 'no_of_weekend_nights' 'no_of_week_nights' 'temperature_max'
+ 'market_segment_type' 'windspeed_max' 'arrival_month' 'arrival_date']
+2026-04-23 14:48:13,193 - INFO - Feature slection completed sucesfully
+2026-04-23 14:48:13,194 - INFO - Saving our data in processed folder
+2026-04-23 14:48:13,381 - INFO - Data saved sucesfuly to artifacts/processed/processed_train.csv
+2026-04-23 14:48:13,381 - INFO - Saving our data in processed folder
+2026-04-23 14:48:13,431 - INFO - Data saved sucesfuly to artifacts/processed/processed_test.csv
+2026-04-23 14:48:13,431 - INFO - Data processing completed sucesfully
+2026-04-23 14:53:53,358 - INFO - Starting our Model Training pipeline
+2026-04-23 14:53:53,358 - INFO - Starting our MLFLOW experimentation
+2026-04-23 14:53:53,358 - INFO - Logging the training and testing datset to MLFLOW
+2026-04-23 14:53:53,374 - INFO - Loading data from artifacts/processed/processed_train.csv
+2026-04-23 14:53:53,374 - INFO - Loading data
+2026-04-23 14:53:53,400 - INFO - Loading data from artifacts/processed/processed_test.csv
+2026-04-23 14:53:53,400 - INFO - Loading data
+2026-04-23 14:53:53,408 - INFO - Data splitted sucefully for Model Training
+2026-04-23 14:53:53,408 - INFO - Intializing our model
+2026-04-23 14:53:53,408 - INFO - Starting our Hyperparamter tuning
+2026-04-23 14:53:53,408 - INFO - Starting our Hyperparamter tuning
+2026-04-23 14:55:34,423 - INFO - Starting our Model Training pipeline
+2026-04-23 14:55:34,424 - INFO - Starting our MLFLOW experimentation
+2026-04-23 14:55:34,424 - INFO - Logging the training and testing datset to MLFLOW
+2026-04-23 14:55:34,442 - INFO - Loading data from artifacts/processed/processed_train.csv
+2026-04-23 14:55:34,442 - INFO - Loading data
+2026-04-23 14:55:34,468 - INFO - Loading data from artifacts/processed/processed_test.csv
+2026-04-23 14:55:34,468 - INFO - Loading data
+2026-04-23 14:55:34,476 - INFO - Data splitted sucefully for Model Training
+2026-04-23 14:55:34,476 - INFO - Intializing our model
+2026-04-23 14:55:34,476 - INFO - Starting our Hyperparamter tuning
+2026-04-23 14:55:34,476 - INFO - Starting our Hyperparamter tuning
+2026-04-23 15:06:10,240 - INFO - Hyperparamter tuning completed
+2026-04-23 15:06:10,244 - INFO - Best paramters are : {'boosting_type': 'gbdt', 'learning_rate': np.float64(0.1293700315892974), 'max_depth': 23, 'n_estimators': 314, 'num_leaves': 94}
+2026-04-23 15:06:10,244 - INFO - Evaluating our model
+2026-04-23 15:06:10,300 - INFO - Accuracy Score : 0.9117717003567182
+2026-04-23 15:06:10,300 - INFO - Precision Score : 0.8999768999769
+2026-04-23 15:06:10,300 - INFO - Recall Score : 0.9265160523186683
+2026-04-23 15:06:10,300 - INFO - F1 Score : 0.9130536676822123
+2026-04-23 15:06:10,300 - INFO - saving the model
+2026-04-23 15:06:10,338 - INFO - Model saved to artifacts/models/lgbm_model.pkl
+2026-04-23 15:06:10,338 - INFO - Logging the model into MLFLOW
+2026-04-23 15:06:10,344 - INFO - Logging Params and metrics to MLFLOW
+2026-04-23 15:06:10,380 - INFO - Model Training sucesfullly completed
+2026-04-23 15:32:29,585 - INFO - Loading data

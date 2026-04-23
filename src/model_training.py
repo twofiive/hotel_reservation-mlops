@@ -153,8 +153,3 @@ class ModelTraining:
 if __name__=="__main__":
     trainer = ModelTraining(PROCESSED_TRAIN_DATA_PATH,PROCESSED_TEST_DATA_PATH,MODEL_OUTPUT_PATH)
     trainer.run()
-        
-
-    
-
-            

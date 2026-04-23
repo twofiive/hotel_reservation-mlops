@@ -7,6 +7,7 @@ from config.paths_config import *
 from utils.common_functions import read_yaml,load_data
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
+from sklearn.impute import SimpleImputer
 from imblearn.over_sampling import SMOTE
 
 logger = get_logger(__name__)
@@ -29,11 +30,22 @@ class DataProcessor:
             logger.info("Starting our Data Processing step")
 
             logger.info("Dropping the columns")
-            df.drop(columns=['Unnamed: 0', 'Booking_ID'] , inplace=True)
+            cols_to_drop = [c for c in ['Unnamed: 0', 'Booking_ID'] if c in df.columns]
+            df.drop(columns=cols_to_drop, inplace=True)
             df.drop_duplicates(inplace=True)
 
             cat_cols = self.config["data_processing"]["categorical_columns"]
+
+            logger.info("Imputing missing values...")
             num_cols = self.config["data_processing"]["numerical_columns"]
+
+            # Keep only numerical columns present in the dataframe
+            cols_to_impute = [c for c in num_cols if c in df.columns]
+
+            imputer = SimpleImputer(strategy="median")
+            df[cols_to_impute] = imputer.fit_transform(df[cols_to_impute])
+            logger.info(f"Remaining NaN after imputation : {df.isnull().sum().sum()}")
+
 
             logger.info("Applying Label Encoding")
 
@@ -48,7 +60,7 @@ class DataProcessor:
             for col,mapping in mappings.items():
                 logger.info(f"{col} : {mapping}")
 
-            logger.info("Doing Skewness HAndling")
+            logger.info("Doing Skewness Handling")
 
             skew_threshold = self.config["data_processing"]["skewness_threshold"]
             skewness = df[num_cols].apply(lambda x:x.skew())
