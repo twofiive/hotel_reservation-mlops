@@ -9,5 +9,5 @@ mlflow
 flask
 requests
 prometheus-client
-pytestpytest-cov
+pytest-cov
 pytest
