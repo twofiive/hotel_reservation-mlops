@@ -83,7 +83,17 @@ jobs:
         run: |
           python3 -c "
           import mlflow
-          mlflow.set_tracking_uri('file:./mlruns')
+          import os
+
+          # Use SQLite backend for CI (avoids filesystem store deprecation)
+          mlflow.set_tracking_uri('sqlite:///mlflow.db')
+
+          # Create experiment if it doesn't exist
+          experiment_name = 'hotel_reservation_ci'
+          if not mlflow.get_experiment_by_name(experiment_name):
+              mlflow.create_experiment(experiment_name)
+          mlflow.set_experiment(experiment_name)
+
           from src.model_training import ModelTraining
           from config.paths_config import *
           trainer = ModelTraining(
