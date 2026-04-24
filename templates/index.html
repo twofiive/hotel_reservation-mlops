@@ -1,147 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width , initial=scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static' , filename='style.css') }}">
-    <title>HOTEL RESERVATION PREDICTION ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prédiction d'Annulation — Hotel Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
-
 <body>
-<div class="container">
-    <h2>Hotel Reservation Prediction</h2>
+    <nav class="navbar">
+        <div class="nav-brand">🏨 Hotel Cancellation Predictor</div>
+        <div class="nav-links">
+            <a href="/" class="nav-link active">🔍 Prédiction</a>
+            <a href="/history" class="nav-link">📋 Historique</a>
+            <a href="/monitoring" class="nav-link">📊 Monitoring</a>
+        </div>
+    </nav>
 
-    <form method="POST">
-        <div class="form-group">
-            <label for="lead_time">Lead Time</label>
-            <input type="number" id="lead_time" name="lead_time" required>
+    <div class="container">
+        <div class="card form-card">
+            <h2>Prédiction d'annulation</h2>
+            <p class="subtitle">
+                Renseignez les détails de la réservation pour estimer
+                le risque d'annulation
+            </p>
+
+            <form method="POST">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="lead_time">
+                            Délai de réservation (jours)
+                        </label>
+                        <input type="number" id="lead_time" name="lead_time"
+                               min="0" max="500" placeholder="ex : 45" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="avg_price_per_room">
+                            Prix moyen par chambre (€)
+                        </label>
+                        <input type="number" id="avg_price_per_room"
+                               name="avg_price_per_room" min="0" step="0.01"
+                               placeholder="ex : 120.50" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="no_of_special_requests">
+                            Demandes spéciales
+                        </label>
+                        <input type="number" id="no_of_special_requests"
+                               name="no_of_special_requests"
+                               min="0" max="10" placeholder="ex : 2" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="arrival_month">Mois d'arrivée</label>
+                        <select id="arrival_month" name="arrival_month" required>
+                            {% for value, name in months.items() %}
+                            <option value="{{ value }}">{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="arrival_date">Jour d'arrivée</label>
+                        <select id="arrival_date" name="arrival_date" required>
+                            {% for day in range(1, 32) %}
+                            <option value="{{ day }}">{{ day }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="market_segment_type">
+                            Segment de marché
+                        </label>
+                        <select id="market_segment_type"
+                                name="market_segment_type" required>
+                            {% for value, name in market_segments.items() %}
+                            <option value="{{ value }}">{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="no_of_week_nights">
+                            Nuits en semaine
+                        </label>
+                        <input type="number" id="no_of_week_nights"
+                               name="no_of_week_nights"
+                               min="0" max="30" placeholder="ex : 3" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="no_of_weekend_nights">
+                            Nuits le week-end
+                        </label>
+                        <input type="number" id="no_of_weekend_nights"
+                               name="no_of_weekend_nights"
+                               min="0" max="10" placeholder="ex : 2" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type_of_meal_plan">Formule repas</label>
+                        <select id="type_of_meal_plan"
+                                name="type_of_meal_plan" required>
+                            {% for value, name in meal_plans.items() %}
+                            <option value="{{ value }}">{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="room_type_reserved">
+                            Type de chambre
+                        </label>
+                        <select id="room_type_reserved"
+                                name="room_type_reserved" required>
+                            {% for value, name in room_types.items() %}
+                            <option value="{{ value }}">{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-predict">
+                    Prédire le risque d'annulation
+                </button>
+            </form>
+
+            {% if error %}
+            <div class="alert alert-error">
+                ⚠️ Erreur : {{ error }}
+            </div>
+            {% endif %}
+
+            {% if prediction is not none %}
+            <div class="result
+                {{ 'result-cancelled' if prediction == 'Annulé'
+                   else 'result-ok' }}">
+                <div class="result-icon">
+                    {{ '❌' if prediction == 'Annulé' else '✅' }}
+                </div>
+                <div class="result-text">
+                    <h3>{{ prediction }}</h3>
+                    <p>
+                        Confiance : <strong>{{ probability }}%</strong>
+                        &nbsp;·&nbsp;
+                        Temps de réponse : <strong>{{ latency_ms }}ms</strong>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
         </div>
 
-
-        <div class="form-group">
-            <label for="no_of_special_request">No_of_special_request</label>
-            <input type="number" id="no_of_special_request" name="no_of_special_request" required>
+        {% if history %}
+        <div class="card">
+            <h3>Dernières prédictions</h3>
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Délai</th>
+                        <th>Prix</th>
+                        <th>Résultat</th>
+                        <th>Confiance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in history %}
+                    <tr>
+                        <td>
+                            {{ p.timestamp.strftime('%d/%m/%Y %H:%M') }}
+                        </td>
+                        <td>{{ p.lead_time }} j</td>
+                        <td>{{ p.avg_price_per_room }} €</td>
+                        <td>
+                            <span class="badge
+                                {{ 'badge-cancelled'
+                                   if p.prediction == 'Annulé'
+                                   else 'badge-ok' }}">
+                                {{ p.prediction }}
+                            </span>
+                        </td>
+                        <td>{{ (p.probability * 100)|round(1) }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="/history" class="link-all">
+                Voir tout l'historique →
+            </a>
         </div>
-
-        <div class="form-group">
-            <label for="avg_price_per_room">Avg_price_per_room</label>
-            <input type="number" id="avg_price_per_room" name="avg_price_per_room" required>
-        </div>
-
-        <div class="form-group">
-            <label for="arrival_month">Arrival Month</label>
-            <select id="arrival_month" name="arrival_month" required>
-                <option value="1">Januray</option>
-                <option value="2">February</option>
-                <option value="3">March</option>
-                <option value="4">April</option>
-                <option value="5">May</option>
-                <option value="6">June</option>
-                <option value="7">July</option>
-                <option value="8">August</option>
-                <option value="9">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
-            </select>
-        </div>
-
-
-        <div class="form-group">
-            <label for="arrival_date">Arrival Date</label>
-            <select id="arrival_date" name="arrival_date" required>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-                <option value="24">24</option>
-                <option value="25">25</option>
-                <option value="26">26</option>
-                <option value="27">27</option>
-                <option value="28">28</option>
-                <option value="29">29</option>
-                <option value="30">30</option>
-                <option value="31">31</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="market_segment_type">Market_segment_type</label>
-            <select id="market_segment_type" name="market_segment_type" required>
-                <option value="0">Aviation</option>
-                <option value="1">Complimentary</option>
-                <option value="2">Corporate</option>
-                <option value="3">Offline</option>
-                <option value="4">Online</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="no_of_week_nights">No_of_week_nights</label>
-            <input type="number" id="no_of_week_nights" name="no_of_week_nights" required>
-        </div>
-
-        <div class="form-group">
-            <label for="no_of_weekend_nights">No_of_weekend_nights</label>
-            <input type="number" id="no_of_weekend_nights" name="no_of_weekend_nights" required>
-        </div>
-
-        <div class="form-group">
-            <label for="type_of_meal_plan">Type_of_meal_plan</label>
-            <select id="type_of_meal_plan" name="type_of_meal_plan" required>
-                <option value="0">Meal Plan 1</option>
-                <option value="1">Meal Plan 2</option>
-                <option value="2">Meal Plan 3</option>
-                <option value="3">Not Selected</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="room_type_reserved">Type_of_meal_plan</label>
-            <select id="room_type_reserved" name="room_type_reserved" required>
-                <option value="0">Room Type 1</option>
-                <option value="1">Room Type 2</option>
-                <option value="2">Room Type 3</option>
-                <option value="3">Room Type 4</option>
-                <option value="4">Room Type 5</option>
-                <option value="5">Room Type 6</option>
-                <option value="6">Room Type 7</option>
-            </select>
-        </div>
-
-        <button type="submit">Predict</button>
-    </form>
-
-    {% if prediction is not none %}
-    <div class="result">
-        {% if prediction == 0 %}
-        <p>The Customer is going to cancel his reservation</p>
-        {% elif prediction == 1 %}
-        <p>The Customer is not going to cancel his reservation</p>
         {% endif %}
     </div>
-    {% endif %}
-</div>
-
 </body>
 </html>

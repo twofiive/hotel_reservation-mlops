@@ -1,0 +1,463 @@
+2026-04-24 11:05:44,609 - INFO - Database initialized
+2026-04-24 11:05:44,621 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://172.17.163.93:8080
+2026-04-24 11:05:44,621 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-24 11:06:03,496 - INFO - 127.0.0.1 - - [24/Apr/2026 11:06:03] "GET / HTTP/1.1" 200 -
+2026-04-24 11:06:03,580 - INFO - 127.0.0.1 - - [24/Apr/2026 11:06:03] "GET /static/style.css HTTP/1.1" 200 -
+2026-04-24 11:06:04,440 - INFO - 127.0.0.1 - - [24/Apr/2026 11:06:04] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-04-24 11:06:45,747 - INFO - Prediction saved: Cancelled (100.0%)
+2026-04-24 11:06:45,750 - INFO - 127.0.0.1 - - [24/Apr/2026 11:06:45] "POST / HTTP/1.1" 200 -
+2026-04-24 11:06:45,820 - INFO - 127.0.0.1 - - [24/Apr/2026 11:06:45] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:07:00,553 - INFO - 127.0.0.1 - - [24/Apr/2026 11:07:00] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:07:00,887 - INFO - 127.0.0.1 - - [24/Apr/2026 11:07:00] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:08:36,665 - INFO - Database initialized
+2026-04-24 11:20:11,421 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://172.17.163.93:8080
+2026-04-24 11:20:11,421 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-24 11:20:16,771 - ERROR - Exception on /history [GET]
+Traceback (most recent call last):
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: prediction.latency_ms
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/ryan.ebanda/ece/hotel_reservation-mlops/application.py", line 149, in history
+    ).limit(50).all()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: prediction.latency_ms
+[SQL: SELECT prediction.id AS prediction_id, prediction.timestamp AS prediction_timestamp, prediction.lead_time AS prediction_lead_time, prediction.no_of_special_requests AS prediction_no_of_special_requests, prediction.avg_price_per_room AS prediction_avg_price_per_room, prediction.arrival_month AS prediction_arrival_month, prediction.arrival_date AS prediction_arrival_date, prediction.market_segment_type AS prediction_market_segment_type, prediction.no_of_week_nights AS prediction_no_of_week_nights, prediction.no_of_weekend_nights AS prediction_no_of_weekend_nights, prediction.type_of_meal_plan AS prediction_type_of_meal_plan, prediction.room_type_reserved AS prediction_room_type_reserved, prediction.prediction AS prediction_prediction, prediction.probability AS prediction_probability, prediction.latency_ms AS prediction_latency_ms 
+FROM prediction ORDER BY prediction.timestamp DESC
+ LIMIT ? OFFSET ?]
+[parameters: (50, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-24 11:20:16,782 - INFO - 127.0.0.1 - - [24/Apr/2026 11:20:16] "[35m[1mGET /history HTTP/1.1[0m" 500 -
+2026-04-24 11:20:20,109 - ERROR - Exception on /history [GET]
+Traceback (most recent call last):
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: prediction.latency_ms
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/ryan.ebanda/ece/hotel_reservation-mlops/application.py", line 149, in history
+    ).limit(50).all()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: prediction.latency_ms
+[SQL: SELECT prediction.id AS prediction_id, prediction.timestamp AS prediction_timestamp, prediction.lead_time AS prediction_lead_time, prediction.no_of_special_requests AS prediction_no_of_special_requests, prediction.avg_price_per_room AS prediction_avg_price_per_room, prediction.arrival_month AS prediction_arrival_month, prediction.arrival_date AS prediction_arrival_date, prediction.market_segment_type AS prediction_market_segment_type, prediction.no_of_week_nights AS prediction_no_of_week_nights, prediction.no_of_weekend_nights AS prediction_no_of_weekend_nights, prediction.type_of_meal_plan AS prediction_type_of_meal_plan, prediction.room_type_reserved AS prediction_room_type_reserved, prediction.prediction AS prediction_prediction, prediction.probability AS prediction_probability, prediction.latency_ms AS prediction_latency_ms 
+FROM prediction ORDER BY prediction.timestamp DESC
+ LIMIT ? OFFSET ?]
+[parameters: (50, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-24 11:20:20,110 - INFO - 127.0.0.1 - - [24/Apr/2026 11:20:20] "[35m[1mGET /history HTTP/1.1[0m" 500 -
+2026-04-24 11:20:23,645 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: prediction.latency_ms
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/ryan.ebanda/ece/hotel_reservation-mlops/application.py", line 129, in index
+    ).limit(5).all()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: prediction.latency_ms
+[SQL: SELECT prediction.id AS prediction_id, prediction.timestamp AS prediction_timestamp, prediction.lead_time AS prediction_lead_time, prediction.no_of_special_requests AS prediction_no_of_special_requests, prediction.avg_price_per_room AS prediction_avg_price_per_room, prediction.arrival_month AS prediction_arrival_month, prediction.arrival_date AS prediction_arrival_date, prediction.market_segment_type AS prediction_market_segment_type, prediction.no_of_week_nights AS prediction_no_of_week_nights, prediction.no_of_weekend_nights AS prediction_no_of_weekend_nights, prediction.type_of_meal_plan AS prediction_type_of_meal_plan, prediction.room_type_reserved AS prediction_room_type_reserved, prediction.prediction AS prediction_prediction, prediction.probability AS prediction_probability, prediction.latency_ms AS prediction_latency_ms 
+FROM prediction ORDER BY prediction.timestamp DESC
+ LIMIT ? OFFSET ?]
+[parameters: (5, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-24 11:20:23,647 - INFO - 127.0.0.1 - - [24/Apr/2026 11:20:23] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2026-04-24 11:20:42,470 - ERROR - Exception on /monitoring [GET]
+Traceback (most recent call last):
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: prediction.latency_ms
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/ryan.ebanda/ece/hotel_reservation-mlops/application.py", line 160, in monitoring
+    all_preds = Prediction.query.all()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: prediction.latency_ms
+[SQL: SELECT prediction.id AS prediction_id, prediction.timestamp AS prediction_timestamp, prediction.lead_time AS prediction_lead_time, prediction.no_of_special_requests AS prediction_no_of_special_requests, prediction.avg_price_per_room AS prediction_avg_price_per_room, prediction.arrival_month AS prediction_arrival_month, prediction.arrival_date AS prediction_arrival_date, prediction.market_segment_type AS prediction_market_segment_type, prediction.no_of_week_nights AS prediction_no_of_week_nights, prediction.no_of_weekend_nights AS prediction_no_of_weekend_nights, prediction.type_of_meal_plan AS prediction_type_of_meal_plan, prediction.room_type_reserved AS prediction_room_type_reserved, prediction.prediction AS prediction_prediction, prediction.probability AS prediction_probability, prediction.latency_ms AS prediction_latency_ms 
+FROM prediction]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-24 11:20:42,473 - INFO - 127.0.0.1 - - [24/Apr/2026 11:20:42] "[35m[1mGET /monitoring HTTP/1.1[0m" 500 -
+2026-04-24 11:21:49,135 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: prediction.latency_ms
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/ryan.ebanda/ece/hotel_reservation-mlops/application.py", line 129, in index
+    ).limit(5).all()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: prediction.latency_ms
+[SQL: SELECT prediction.id AS prediction_id, prediction.timestamp AS prediction_timestamp, prediction.lead_time AS prediction_lead_time, prediction.no_of_special_requests AS prediction_no_of_special_requests, prediction.avg_price_per_room AS prediction_avg_price_per_room, prediction.arrival_month AS prediction_arrival_month, prediction.arrival_date AS prediction_arrival_date, prediction.market_segment_type AS prediction_market_segment_type, prediction.no_of_week_nights AS prediction_no_of_week_nights, prediction.no_of_weekend_nights AS prediction_no_of_weekend_nights, prediction.type_of_meal_plan AS prediction_type_of_meal_plan, prediction.room_type_reserved AS prediction_room_type_reserved, prediction.prediction AS prediction_prediction, prediction.probability AS prediction_probability, prediction.latency_ms AS prediction_latency_ms 
+FROM prediction ORDER BY prediction.timestamp DESC
+ LIMIT ? OFFSET ?]
+[parameters: (5, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-24 11:21:49,137 - INFO - 127.0.0.1 - - [24/Apr/2026 11:21:49] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2026-04-24 11:22:23,786 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://172.17.163.93:8080
+2026-04-24 11:22:23,787 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-24 11:22:28,917 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: prediction.latency_ms
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/ryan.ebanda/ece/hotel_reservation-mlops/application.py", line 129, in index
+    ).limit(5).all()
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ryan.ebanda/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: prediction.latency_ms
+[SQL: SELECT prediction.id AS prediction_id, prediction.timestamp AS prediction_timestamp, prediction.lead_time AS prediction_lead_time, prediction.no_of_special_requests AS prediction_no_of_special_requests, prediction.avg_price_per_room AS prediction_avg_price_per_room, prediction.arrival_month AS prediction_arrival_month, prediction.arrival_date AS prediction_arrival_date, prediction.market_segment_type AS prediction_market_segment_type, prediction.no_of_week_nights AS prediction_no_of_week_nights, prediction.no_of_weekend_nights AS prediction_no_of_weekend_nights, prediction.type_of_meal_plan AS prediction_type_of_meal_plan, prediction.room_type_reserved AS prediction_room_type_reserved, prediction.prediction AS prediction_prediction, prediction.probability AS prediction_probability, prediction.latency_ms AS prediction_latency_ms 
+FROM prediction ORDER BY prediction.timestamp DESC
+ LIMIT ? OFFSET ?]
+[parameters: (5, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-24 11:22:28,924 - INFO - 127.0.0.1 - - [24/Apr/2026 11:22:28] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2026-04-24 11:23:20,366 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://172.17.163.93:8080
+2026-04-24 11:23:20,366 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-24 11:23:20,367 - INFO -  * Restarting with stat
+2026-04-24 11:23:21,541 - WARNING -  * Debugger is active!
+2026-04-24 11:23:21,542 - INFO -  * Debugger PIN: 831-751-975
+2026-04-24 11:23:28,407 - INFO - 127.0.0.1 - - [24/Apr/2026 11:23:28] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2026-04-24 11:23:28,477 - INFO - 127.0.0.1 - - [24/Apr/2026 11:23:28] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2026-04-24 11:23:28,622 - INFO - 127.0.0.1 - - [24/Apr/2026 11:23:28] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2026-04-24 11:23:29,050 - INFO - 127.0.0.1 - - [24/Apr/2026 11:23:29] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=QhiFZ9iYxC8M8z9Iem7J HTTP/1.1" 200 -
+2026-04-24 11:23:29,339 - INFO - 127.0.0.1 - - [24/Apr/2026 11:23:29] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2026-04-24 11:24:12,669 - INFO -  * Detected change in '/home/ryan.ebanda/ece/hotel_reservation-mlops/application.py', reloading
+2026-04-24 11:24:13,022 - INFO -  * Restarting with stat
+2026-04-24 11:24:14,389 - WARNING -  * Debugger is active!
+2026-04-24 11:24:14,389 - INFO -  * Debugger PIN: 831-751-975
+2026-04-24 11:24:15,698 - INFO -  * Detected change in '/home/ryan.ebanda/ece/hotel_reservation-mlops/__temp_pipreqsnb_folder/_pipreqsnb_temp_file.py', reloading
+2026-04-24 11:24:15,998 - INFO -  * Restarting with stat
+2026-04-24 11:24:38,609 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://172.17.163.93:8080
+2026-04-24 11:24:38,610 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-24 11:24:38,610 - INFO -  * Restarting with stat
+2026-04-24 11:24:39,821 - WARNING -  * Debugger is active!
+2026-04-24 11:24:39,822 - INFO -  * Debugger PIN: 831-751-975
+2026-04-24 11:24:42,728 - INFO - 127.0.0.1 - - [24/Apr/2026 11:24:42] "GET / HTTP/1.1" 200 -
+2026-04-24 11:24:42,783 - INFO - 127.0.0.1 - - [24/Apr/2026 11:24:42] "GET /static/style.css HTTP/1.1" 200 -
+2026-04-24 11:24:46,998 - INFO - 127.0.0.1 - - [24/Apr/2026 11:24:46] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:24:47,323 - INFO - 127.0.0.1 - - [24/Apr/2026 11:24:47] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:24:48,766 - INFO - 127.0.0.1 - - [24/Apr/2026 11:24:48] "GET / HTTP/1.1" 200 -
+2026-04-24 11:24:48,957 - INFO - 127.0.0.1 - - [24/Apr/2026 11:24:48] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:24:49,677 - INFO - 127.0.0.1 - - [24/Apr/2026 11:24:49] "GET /monitoring HTTP/1.1" 200 -
+2026-04-24 11:24:49,994 - INFO - 127.0.0.1 - - [24/Apr/2026 11:24:49] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:25:20,562 - INFO - 127.0.0.1 - - [24/Apr/2026 11:25:20] "GET /monitoring HTTP/1.1" 200 -
+2026-04-24 11:25:20,635 - INFO - 127.0.0.1 - - [24/Apr/2026 11:25:20] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:25:51,221 - INFO - 127.0.0.1 - - [24/Apr/2026 11:25:51] "GET /monitoring HTTP/1.1" 200 -
+2026-04-24 11:25:51,541 - INFO - 127.0.0.1 - - [24/Apr/2026 11:25:51] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:26:22,566 - INFO - 127.0.0.1 - - [24/Apr/2026 11:26:22] "GET /monitoring HTTP/1.1" 200 -
+2026-04-24 11:26:22,591 - INFO - 127.0.0.1 - - [24/Apr/2026 11:26:22] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:26:37,711 - INFO - 127.0.0.1 - - [24/Apr/2026 11:26:37] "GET / HTTP/1.1" 200 -
+2026-04-24 11:26:38,046 - INFO - 127.0.0.1 - - [24/Apr/2026 11:26:38] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:27:14,192 - INFO - Prédiction: Non annulé (100.0%) en 21.43ms
+2026-04-24 11:27:14,195 - INFO - 127.0.0.1 - - [24/Apr/2026 11:27:14] "POST / HTTP/1.1" 200 -
+2026-04-24 11:27:14,273 - INFO - 127.0.0.1 - - [24/Apr/2026 11:27:14] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:27:22,340 - INFO - 127.0.0.1 - - [24/Apr/2026 11:27:22] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:27:22,673 - INFO - 127.0.0.1 - - [24/Apr/2026 11:27:22] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:27:26,220 - INFO - 127.0.0.1 - - [24/Apr/2026 11:27:26] "GET / HTTP/1.1" 200 -
+2026-04-24 11:27:26,403 - INFO - 127.0.0.1 - - [24/Apr/2026 11:27:26] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:27:29,122 - INFO - 127.0.0.1 - - [24/Apr/2026 11:27:29] "GET /monitoring HTTP/1.1" 200 -
+2026-04-24 11:27:29,453 - INFO - 127.0.0.1 - - [24/Apr/2026 11:27:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:27:54,151 - INFO - 127.0.0.1 - - [24/Apr/2026 11:27:54] "GET / HTTP/1.1" 200 -
+2026-04-24 11:27:54,284 - INFO - 127.0.0.1 - - [24/Apr/2026 11:27:54] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:28:20,443 - INFO - Prédiction: Annulé (100.0%) en 8.6ms
+2026-04-24 11:28:20,447 - INFO - 127.0.0.1 - - [24/Apr/2026 11:28:20] "POST / HTTP/1.1" 200 -
+2026-04-24 11:28:20,764 - INFO - 127.0.0.1 - - [24/Apr/2026 11:28:20] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:28:38,976 - INFO - 127.0.0.1 - - [24/Apr/2026 11:28:38] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:28:39,102 - INFO - 127.0.0.1 - - [24/Apr/2026 11:28:39] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:28:43,481 - INFO - 127.0.0.1 - - [24/Apr/2026 11:28:43] "GET / HTTP/1.1" 200 -
+2026-04-24 11:28:43,819 - INFO - 127.0.0.1 - - [24/Apr/2026 11:28:43] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:28:44,627 - INFO - 127.0.0.1 - - [24/Apr/2026 11:28:44] "GET /monitoring HTTP/1.1" 200 -
+2026-04-24 11:28:44,841 - INFO - 127.0.0.1 - - [24/Apr/2026 11:28:44] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:28:46,279 - INFO - 127.0.0.1 - - [24/Apr/2026 11:28:46] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:28:46,606 - INFO - 127.0.0.1 - - [24/Apr/2026 11:28:46] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:28:58,016 - INFO - 127.0.0.1 - - [24/Apr/2026 11:28:58] "GET / HTTP/1.1" 200 -
+2026-04-24 11:28:58,098 - INFO - 127.0.0.1 - - [24/Apr/2026 11:28:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:28:59,485 - INFO - 127.0.0.1 - - [24/Apr/2026 11:28:59] "GET / HTTP/1.1" 200 -
+2026-04-24 11:28:59,827 - INFO - 127.0.0.1 - - [24/Apr/2026 11:28:59] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:29:27,335 - INFO - Prédiction: Annulé (94.2%) en 7.76ms
+2026-04-24 11:29:27,338 - INFO - 127.0.0.1 - - [24/Apr/2026 11:29:27] "POST / HTTP/1.1" 200 -
+2026-04-24 11:29:27,425 - INFO - 127.0.0.1 - - [24/Apr/2026 11:29:27] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:30:13,307 - INFO - Prédiction: Annulé (86.9%) en 13.28ms
+2026-04-24 11:30:13,311 - INFO - 127.0.0.1 - - [24/Apr/2026 11:30:13] "POST / HTTP/1.1" 200 -
+2026-04-24 11:30:13,623 - INFO - 127.0.0.1 - - [24/Apr/2026 11:30:13] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:30:17,010 - INFO - 127.0.0.1 - - [24/Apr/2026 11:30:17] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:30:17,159 - INFO - 127.0.0.1 - - [24/Apr/2026 11:30:17] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:30:27,756 - INFO - 127.0.0.1 - - [24/Apr/2026 11:30:27] "GET / HTTP/1.1" 200 -
+2026-04-24 11:30:28,079 - INFO - 127.0.0.1 - - [24/Apr/2026 11:30:28] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:31:12,492 - INFO - Prédiction: Non annulé (80.0%) en 8.73ms
+2026-04-24 11:31:12,495 - INFO - 127.0.0.1 - - [24/Apr/2026 11:31:12] "POST / HTTP/1.1" 200 -
+2026-04-24 11:31:12,601 - INFO - 127.0.0.1 - - [24/Apr/2026 11:31:12] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:31:15,781 - INFO - 127.0.0.1 - - [24/Apr/2026 11:31:15] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:31:16,130 - INFO - 127.0.0.1 - - [24/Apr/2026 11:31:16] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:32:19,182 - INFO - 127.0.0.1 - - [24/Apr/2026 11:32:19] "GET / HTTP/1.1" 200 -
+2026-04-24 11:32:19,273 - INFO - 127.0.0.1 - - [24/Apr/2026 11:32:19] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:32:19,878 - INFO - 127.0.0.1 - - [24/Apr/2026 11:32:19] "GET /monitoring HTTP/1.1" 200 -
+2026-04-24 11:32:20,214 - INFO - 127.0.0.1 - - [24/Apr/2026 11:32:20] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:32:50,674 - INFO - 127.0.0.1 - - [24/Apr/2026 11:32:50] "GET /monitoring HTTP/1.1" 200 -
+2026-04-24 11:32:50,725 - INFO - 127.0.0.1 - - [24/Apr/2026 11:32:50] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:33:16,725 - INFO - 127.0.0.1 - - [24/Apr/2026 11:33:16] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:33:17,050 - INFO - 127.0.0.1 - - [24/Apr/2026 11:33:17] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:35:18,936 - INFO - 127.0.0.1 - - [24/Apr/2026 11:35:18] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:35:19,006 - INFO - 127.0.0.1 - - [24/Apr/2026 11:35:19] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:35:36,967 - INFO - 127.0.0.1 - - [24/Apr/2026 11:35:36] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:35:37,298 - INFO - 127.0.0.1 - - [24/Apr/2026 11:35:37] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:37:23,554 - INFO - 127.0.0.1 - - [24/Apr/2026 11:37:23] "GET / HTTP/1.1" 200 -
+2026-04-24 11:37:23,683 - INFO - 127.0.0.1 - - [24/Apr/2026 11:37:23] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:37:29,942 - INFO - 127.0.0.1 - - [24/Apr/2026 11:37:29] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:37:30,279 - INFO - 127.0.0.1 - - [24/Apr/2026 11:37:30] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:37:31,317 - INFO - 127.0.0.1 - - [24/Apr/2026 11:37:31] "GET / HTTP/1.1" 200 -
+2026-04-24 11:37:31,434 - INFO - 127.0.0.1 - - [24/Apr/2026 11:37:31] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:37:32,287 - INFO - 127.0.0.1 - - [24/Apr/2026 11:37:32] "GET /monitoring HTTP/1.1" 200 -
+2026-04-24 11:37:32,613 - INFO - 127.0.0.1 - - [24/Apr/2026 11:37:32] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:37:34,638 - INFO - 127.0.0.1 - - [24/Apr/2026 11:37:34] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:37:34,798 - INFO - 127.0.0.1 - - [24/Apr/2026 11:37:34] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:44:40,048 - INFO - 127.0.0.1 - - [24/Apr/2026 11:44:40] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:44:40,169 - INFO - 127.0.0.1 - - [24/Apr/2026 11:44:40] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:44:42,873 - INFO - 127.0.0.1 - - [24/Apr/2026 11:44:42] "GET / HTTP/1.1" 200 -
+2026-04-24 11:44:43,216 - INFO - 127.0.0.1 - - [24/Apr/2026 11:44:43] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:57:16,660 - INFO - 127.0.0.1 - - [24/Apr/2026 11:57:16] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:57:16,760 - INFO - 127.0.0.1 - - [24/Apr/2026 11:57:16] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:57:18,895 - INFO - 127.0.0.1 - - [24/Apr/2026 11:57:18] "GET / HTTP/1.1" 200 -
+2026-04-24 11:57:19,222 - INFO - 127.0.0.1 - - [24/Apr/2026 11:57:19] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-24 11:57:35,920 - INFO - 127.0.0.1 - - [24/Apr/2026 11:57:35] "GET /history HTTP/1.1" 200 -
+2026-04-24 11:57:36,027 - INFO - 127.0.0.1 - - [24/Apr/2026 11:57:36] "[36mGET /static/style.css HTTP/1.1[0m" 304 -

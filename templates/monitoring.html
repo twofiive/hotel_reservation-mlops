@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring — Hotel Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">🏨 Hotel Cancellation Predictor</div>
+        <div class="nav-links">
+            <a href="/" class="nav-link">🔍 Prédiction</a>
+            <a href="/history" class="nav-link">📋 Historique</a>
+            <a href="/monitoring" class="nav-link active">📊 Monitoring</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-icon">🔢</div>
+                <div class="kpi-content">
+                    <span class="kpi-value" id="total-predictions">{{ stats.total }}</span>
+                    <span class="kpi-label">Prédictions totales</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon">❌</div>
+                <div class="kpi-content">
+                    <span class="kpi-value" id="cancelled-count">{{ stats.cancelled }}</span>
+                    <span class="kpi-label">Annulations prédites</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon">✅</div>
+                <div class="kpi-content">
+                    <span class="kpi-value" id="not-cancelled-count">{{ stats.not_cancelled }}</span>
+                    <span class="kpi-label">Non-annulations prédites</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon">🎯</div>
+                <div class="kpi-content">
+                    <span class="kpi-value" id="avg-confidence">{{ stats.avg_confidence }}%</span>
+                    <span class="kpi-label">Confiance moyenne</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon">⚡</div>
+                <div class="kpi-content">
+                    <span class="kpi-value" id="avg-latency">{{ stats.avg_latency }}ms</span>
+                    <span class="kpi-label">Latence moyenne</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon">📅</div>
+                <div class="kpi-content">
+                    <span class="kpi-value" id="today-count">{{ stats.today }}</span>
+                    <span class="kpi-label">Prédictions aujourd'hui</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row 1 -->
+        <div class="charts-grid">
+            <div class="card chart-card">
+                <h3>Répartition des prédictions</h3>
+                <canvas id="donut-chart"></canvas>
+            </div>
+            <div class="card chart-card">
+                <h3>Distribution de la confiance</h3>
+                <canvas id="confidence-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- Charts Row 2 -->
+        <div class="card">
+            <h3>Évolution des prédictions dans le temps</h3>
+            <canvas id="timeline-chart" height="80"></canvas>
+        </div>
+
+        <!-- Charts Row 3 -->
+        <div class="charts-grid">
+            <div class="card chart-card">
+                <h3>Prédictions par segment de marché</h3>
+                <canvas id="market-chart"></canvas>
+            </div>
+            <div class="card chart-card">
+                <h3>Prix moyen par résultat</h3>
+                <canvas id="price-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- Model Info -->
+        <div class="card">
+            <h3>Informations du modèle</h3>
+            <div class="model-info-grid">
+                <div class="model-info-item">
+                    <span class="info-label">Algorithme</span>
+                    <span class="info-value">LightGBM Classifier</span>
+                </div>
+                <div class="model-info-item">
+                    <span class="info-label">Features utilisées</span>
+                    <span class="info-value">10</span>
+                </div>
+                <div class="model-info-item">
+                    <span class="info-label">Accuracy (test)</span>
+                    <span class="info-value">91.18%</span>
+                </div>
+                <div class="model-info-item">
+                    <span class="info-label">F1 Score (test)</span>
+                    <span class="info-value">91.31%</span>
+                </div>
+                <div class="model-info-item">
+                    <span class="info-label">Version modèle</span>
+                    <span class="info-value">1.0.0</span>
+                </div>
+                <div class="model-info-item">
+                    <span class="info-label">Statut</span>
+                    <span class="info-value status-ok">🟢 Opérationnel</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ── Data from Flask ──
+        const statsData = {{ stats | tojson }};
+        const chartData = {{ chart_data | tojson }};
+
+        // ── Donut Chart ──
+        new Chart(document.getElementById('donut-chart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Annulé', 'Non annulé'],
+                datasets: [{
+                    data: [statsData.cancelled, statsData.not_cancelled],
+                    backgroundColor: ['#fc8181', '#68d391'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // ── Confidence Distribution ──
+        new Chart(document.getElementById('confidence-chart'), {
+            type: 'bar',
+            data: {
+                labels: ['50-60%', '60-70%', '70-80%', '80-90%', '90-100%'],
+                datasets: [{
+                    label: 'Nombre de prédictions',
+                    data: chartData.confidence_dist,
+                    backgroundColor: '#63b3ed',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, ticks: { stepSize: 1 } }
+                }
+            }
+        });
+
+        // ── Timeline Chart ──
+        new Chart(document.getElementById('timeline-chart'), {
+            type: 'line',
+            data: {
+                labels: chartData.timeline_labels,
+                datasets: [
+                    {
+                        label: 'Annulé',
+                        data: chartData.timeline_cancelled,
+                        borderColor: '#fc8181',
+                        backgroundColor: 'rgba(252,129,129,0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Non annulé',
+                        data: chartData.timeline_not_cancelled,
+                        borderColor: '#68d391',
+                        backgroundColor: 'rgba(104,211,145,0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, ticks: { stepSize: 1 } }
+                }
+            }
+        });
+
+        // ── Market Segment Chart ──
+        new Chart(document.getElementById('market-chart'), {
+            type: 'bar',
+            data: {
+                labels: chartData.market_labels,
+                datasets: [{
+                    label: 'Prédictions',
+                    data: chartData.market_counts,
+                    backgroundColor: [
+                        '#63b3ed', '#fc8181', '#68d391',
+                        '#f6ad55', '#b794f4'
+                    ],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        // ── Price Chart ──
+        new Chart(document.getElementById('price-chart'), {
+            type: 'bar',
+            data: {
+                labels: ['Annulé', 'Non annulé'],
+                datasets: [{
+                    label: 'Prix moyen (€)',
+                    data: chartData.avg_price_by_result,
+                    backgroundColor: ['#fc8181', '#68d391'],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        // ── Auto-refresh every 30 seconds ──
+        setTimeout(() => location.reload(), 30000);
+    </script>
+</body>
+</html>

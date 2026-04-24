@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">🏨 Hotel Cancellation Predictor</div>
+        <a href="/" class="nav-link">← Retour à la page principale</a>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <h2>Historique des Prédictions</h2>
+            <p class="subtitle">Dernières 50 predictions</p>
+
+            {% if predictions %}
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Délai</th>
+                        <th>Prix/Chambre</th>
+                        <th>Mois</th>
+                        <th>Marché</th>
+                        <th>Résultat</th>
+                        <th>Confiance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in predictions %}
+                    <tr>
+                        <td>#{{ p.id }}</td>
+                        <td>{{ p.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        <td>{{ p.lead_time }} days</td>
+                        <td>€{{ p.avg_price_per_room }}</td>
+                        <td>{{ months[p.arrival_month] }}</td>
+                        <td>{{ p.market_segment_type }}</td>
+                        <td>
+                            <span class="badge {{ 'badge-cancelled' if p.prediction == 'Cancelled' else 'badge-ok' }}">
+                                {{ p.prediction }}
+                            </span>
+                        </td>
+                        <td>{{ (p.probability * 100)|round(1) }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="empty">No predictions yet. Make your first prediction!</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
