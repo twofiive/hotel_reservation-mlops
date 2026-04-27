@@ -6,6 +6,13 @@ from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from config.paths_config import MODEL_OUTPUT_PATH
 from src.logger import get_logger
+from src.db_queries import (
+    get_total_predictions, get_cancelled_count, get_not_cancelled_count,
+    get_avg_confidence, get_avg_latency, get_today_count,
+    get_confidence_distribution, get_timeline_data,
+    get_market_segment_distribution, get_avg_price_by_result
+)
+
 
 logger = get_logger(__name__)
 
@@ -156,100 +163,28 @@ def history():
 
 @app.route("/monitoring")
 def monitoring():
-    """Page de monitoring avec métriques et graphiques."""
-    all_preds = Prediction.query.all()
-    today_preds = Prediction.query.filter(
-        db.func.date(Prediction.timestamp) == date.today()
-    ).all()
-
-    total = len(all_preds)
-    cancelled = sum(1 for p in all_preds if p.prediction == "Annulé")
-    not_cancelled = total - cancelled
-    avg_confidence = round(
-        sum(p.probability for p in all_preds) / total * 100, 1
-    ) if total > 0 else 0
-    avg_latency = round(
-        sum(p.latency_ms for p in all_preds if p.latency_ms) /
-        max(1, sum(1 for p in all_preds if p.latency_ms)), 2
-    )
+    """Page de monitoring — métriques calculées via requêtes SQL explicites."""
 
     stats = {
-        "total": total,
-        "cancelled": cancelled,
-        "not_cancelled": not_cancelled,
-        "avg_confidence": avg_confidence,
-        "avg_latency": avg_latency,
-        "today": len(today_preds)
+        "total": get_total_predictions(db),
+        "cancelled": get_cancelled_count(db),
+        "not_cancelled": get_not_cancelled_count(db),
+        "avg_confidence": get_avg_confidence(db),
+        "avg_latency": get_avg_latency(db),
+        "today": get_today_count(db)
     }
 
-    # Confidence distribution
-    confidence_dist = [0] * 5
-    for p in all_preds:
-        proba = p.probability * 100
-        if proba < 60:
-            confidence_dist[0] += 1
-        elif proba < 70:
-            confidence_dist[1] += 1
-        elif proba < 80:
-            confidence_dist[2] += 1
-        elif proba < 90:
-            confidence_dist[3] += 1
-        else:
-            confidence_dist[4] += 1
-
-    # Timeline — last 7 days
-    from collections import defaultdict
-    timeline_cancelled = defaultdict(int)
-    timeline_not_cancelled = defaultdict(int)
-    for p in all_preds:
-        day = p.timestamp.strftime("%d/%m")
-        if p.prediction == "Annulé":
-            timeline_cancelled[day] += 1
-        else:
-            timeline_not_cancelled[day] += 1
-
-    timeline_labels = sorted(set(
-        list(timeline_cancelled.keys()) +
-        list(timeline_not_cancelled.keys())
-    ))[-7:]
-
-    # Market segment distribution
-    market_names = {
-        0: "Aviation", 1: "Complémentaire", 2: "Corporate",
-        3: "Hors ligne", 4: "En ligne"
-    }
-    market_counts_dict = defaultdict(int)
-    for p in all_preds:
-        market_counts_dict[p.market_segment_type] += 1
-
-    market_labels = [market_names.get(k, str(k))
-                     for k in sorted(market_counts_dict.keys())]
-    market_counts = [market_counts_dict[k]
-                     for k in sorted(market_counts_dict.keys())]
-
-    # Average price by result
-    cancelled_prices = [p.avg_price_per_room
-                        for p in all_preds if p.prediction == "Annulé"]
-    not_cancelled_prices = [p.avg_price_per_room
-                             for p in all_preds if p.prediction == "Non annulé"]
-
-    avg_price_cancelled = round(
-        sum(cancelled_prices) / len(cancelled_prices), 2
-    ) if cancelled_prices else 0
-    avg_price_not_cancelled = round(
-        sum(not_cancelled_prices) / len(not_cancelled_prices), 2
-    ) if not_cancelled_prices else 0
+    timeline_labels, timeline_cancelled, timeline_not_cancelled = get_timeline_data(db)
+    market_labels, market_counts = get_market_segment_distribution(db)
 
     chart_data = {
-        "confidence_dist": confidence_dist,
+        "confidence_dist": get_confidence_distribution(db),
         "timeline_labels": timeline_labels,
-        "timeline_cancelled": [timeline_cancelled.get(d, 0)
-                                for d in timeline_labels],
-        "timeline_not_cancelled": [timeline_not_cancelled.get(d, 0)
-                                   for d in timeline_labels],
+        "timeline_cancelled": timeline_cancelled,
+        "timeline_not_cancelled": timeline_not_cancelled,
         "market_labels": market_labels,
         "market_counts": market_counts,
-        "avg_price_by_result": [avg_price_cancelled, avg_price_not_cancelled]
+        "avg_price_by_result": get_avg_price_by_result(db)
     }
 
     return render_template(
